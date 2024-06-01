@@ -1,4 +1,5 @@
 ﻿using Autodesk.DesignScript.Geometry;
+using Autodesk.DesignScript.Runtime;
 using KDHBridge_DYN48.Utility;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace KDHBridge_DYN48.Element.Section
 {
-    internal class HSection : IElementSection
+    [IsVisibleInDynamoLibrary(false)]
+    public class HSection : IElementSection
     {
         // Input Paramters
         internal double Height { get; set; }
@@ -247,7 +249,7 @@ namespace KDHBridge_DYN48.Element.Section
                 ((BFW - WW - 2 * BFHH) / (2 * 3) + WW / 2 + BFHH - u),
                 -1 * u
             };
-            List<double> aXSquare = areas.Zip(xValues, (area, x) => area * Math.Pow(x - CentroidX, 2)).ToList();
+            List<double> aXSquare = areas.Zip(xValues, (area, x) => area * Math.Pow(x, 2)).ToList();
             
 
             return inertia0 + aXSquare.Sum();
@@ -293,7 +295,7 @@ namespace KDHBridge_DYN48.Element.Section
                 Height - (BFH + BFIH / 3) - v,
                 Height - (BFH / 2) - v
             };
-            List<double> aYSquare = areas.Zip(yValues, (area, y) => area * Math.Pow(CentroidY - y, 2)).ToList();
+            List<double> aYSquare = areas.Zip(yValues, (area, y) => area * Math.Pow(y, 2)).ToList();
 
             return inertia0 + aYSquare.Sum();
         }

@@ -165,8 +165,9 @@ namespace KDHBridge_DYN48.Element.MathCurve
         {
             Point origin = PointAtParameter(param);
             Vector tangent = TangentAtParameter(param);
-            Vector xAxis = tangent.Cross(Plane.Normal).Normalized();
-            return Plane.ByOriginNormalXAxis(origin, tangent, xAxis);
+            Vector xAxis = Plane.Normal.Cross(tangent).Normalized();
+            Vector yAxis = tangent.Cross(xAxis).Normalized();
+            return Plane.ByOriginXAxisYAxis(origin, xAxis, yAxis);
         }
 
         // 애매함

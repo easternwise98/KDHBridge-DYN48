@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.DesignScript.Geometry;
+using Autodesk.DesignScript.Runtime;
 
 namespace KDHBridge_DYN48.Element.Section
 {
-    internal class CirSection : IElementSection
+    [IsVisibleInDynamoLibrary(false)]
+    public class CirSection : IElementSection
     {
         // Input parameters
         internal double Diameter { get; set; }

@@ -48,7 +48,8 @@ namespace KDHBridge_DYN48.Element.MathCurve
             End = PointAtParameter(1);
             ControlPoints = new List<Point> { Start, PointAtParameter(0.5), End };
 
-            
+            Length = GetLength();
+
             VisualPoints = GetVisualPoints(tol);
             VisualCurve = PolyCurve.ByPoints(VisualPoints);
 
@@ -111,6 +112,17 @@ namespace KDHBridge_DYN48.Element.MathCurve
 
 
         public IMathCurve SetPlane(Plane plane) => new Parabola2D(plane, Width, Height);
+
+        internal double GetLength()
+        {
+            double a = Height;
+            double b = Width;
+            double length = 0.5 * Math.Sqrt(b * b + 16 * a * a + b * b)
+                   - (b * b / (8 * a)) * Math.Log(4 * a + Math.Sqrt(b * b + 16 * a * a));
+
+            return Math.Abs(length);
+        }
+
 
     }
 }

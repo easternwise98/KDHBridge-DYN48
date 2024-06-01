@@ -50,6 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crossbeam\HCrossbeam.cs" />
+    <Compile Include="Deck\Deck.cs" />
+    <Compile Include="Deck\DeckPocket.cs" />
+    <Compile Include="Deck\DeckRebar.cs" />
+    <Compile Include="Deck\DeckSection.cs" />
     <Compile Include="Element\MathCurve\Arc2D.cs" />
     <Compile Include="Element\MathCurve\Clothoid2D.cs" />
     <Compile Include="Element\MathCurve\IMathCurve.cs" />
@@ -64,13 +69,14 @@
     <Compile Include="Element\Section\IElementSection.cs" />
     <Compile Include="Element\Section\RecSection.cs" />
     <Compile Include="Girder\GConnector.cs" />
+    <Compile Include="Girder\GHRebar.cs" />
     <Compile Include="Girder\Girder.cs" />
     <Compile Include="Girder\GAlignment.cs" />
+    <Compile Include="Girder\GMainRebar.cs" />
     <Compile Include="Girder\GTendon.cs" />
+    <Compile Include="Nodes\DCrossbeam\DCrossbeam.cs" />
+    <Compile Include="Nodes\DDeck\DDeck.cs" />
     <Compile Include="Nodes\DElementSection\DElementSection.cs" />
-    <Compile Include="Nodes\DElementSection\DHSection.cs" />
-    <Compile Include="Nodes\DElementSection\DCirSection.cs" />
-    <Compile Include="Nodes\DElementSection\DRecSection.cs" />
     <Compile Include="Nodes\DMathCurve\DMathCurve2D.cs" />
     <Compile Include="Nodes\DMathCurve\DMathCurve3D.cs" />
     <Compile Include="Nodes\DMathCurve\DParabola2D.cs" />
@@ -79,8 +85,6 @@
     <Compile Include="Nodes\GeometryFunctionNodes.cs" />
     <Compile Include="Nodes\DGirder\DGirder.cs" />
     <Compile Include="Nodes\DMathCurve\DMathAlignment3D.cs" />
-    <Compile Include="Nodes\DMathCurve\DMathCurve3Da.cs" />
-    <Compile Include="Nodes\DMathCurve\DMathCurve2Da.cs" />
     <Compile Include="Nodes\DMathCurve\DArc2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\GeometryFunctions.cs" />
@@ -93,7 +97,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Deck\" />
     <Folder Include="Element\Materials\" />
     <Folder Include="Pier\" />
     <Folder Include="RoadAlignment\" />

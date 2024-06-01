@@ -1,4 +1,5 @@
 ﻿using Autodesk.DesignScript.Geometry;
+using Autodesk.DesignScript.Runtime;
 using KDHBridge_DYN48.Utility;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace KDHBridge_DYN48.Element.Section
 {
-    internal class RecSection : IElementSection
+    [IsVisibleInDynamoLibrary(false)]
+    public class RecSection : IElementSection
     {
         // Input parameters
         internal double Width { get; set; }

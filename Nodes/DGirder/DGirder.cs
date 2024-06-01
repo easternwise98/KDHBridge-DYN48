@@ -123,6 +123,77 @@ namespace KDHBridge_DYN48.Nodes.DGirder
             };
         }
 
+        [MultiReturn(new[] { "Girder", "HRebars", "HRebarCurves"})]
+        public static Dictionary<string, object> SetHRebars(Girder.Girder Girder, List<string> name, List<double> diameter, List<double> startLocation, List<double> startWidth, List<double> startHeight,
+                       List<double> spacing, List<double> num, List<List<double>> lengths, List<List<double>> angleH, List<List<double>> anglePlane, bool isReset = true)
+        {
+            if (isReset) Girder.HRebars.Clear(); Girder.HRebarCurves.Clear();
+
+            Girder.SetHRebar(name, diameter, startLocation, startWidth, startHeight, spacing, num, lengths, angleH, anglePlane);
+
+            
+            return new Dictionary<string, object>
+            {
+                { "Girder", Girder },
+                { "HRebars", Girder.HRebars },
+                { "HRebarCurves", Girder.HRebarCurves }
+            };
+        }
+
+        [MultiReturn(new[] { "Girder", "HRebars", "HRebarSolids" })]
+        public static Dictionary<string, object> SetHRebarSolid(Girder.Girder Girder)
+        {
+            Girder.SetHRebarSolid();
+            List<Solid> solid = new List<Solid>();
+            foreach (GHRebar rebar in Girder.HRebars)
+            {
+                solid.AddRange(rebar.RebarSolids);
+            }
+            return new Dictionary<string, object>
+            {
+                { "Girder", Girder },
+                { "HRebars", Girder.HRebars },
+                { "HRebarSolids", solid }
+            };
+        }
+
+        [MultiReturn(new[] { "Girder", "MainRebars", "MainRebarCurves" })]
+        public static Dictionary<string, object> SetMainRebars(Girder.Girder Girder, List<string> name, List<double> diameter, List<List<double>> alignLoc, List<List<double>> alignWidth, List<List<double>> alignHeight, bool isReset = true)
+        {
+            if (isReset) Girder.MainRebars.Clear(); Girder.MainRebarCurves.Clear();
+
+            Girder.SetMainRebar(name, diameter, alignLoc, alignWidth, alignHeight);
+
+
+            return new Dictionary<string, object>
+            {
+                { "Girder", Girder },
+                { "MainRebars", Girder.MainRebars },
+                { "MainRebarCurves", Girder.MainRebarCurves }
+            };
+        }
+
+        [MultiReturn(new[] { "Girder", "MainRebars", "MainRebarSolids" })]
+        public static Dictionary<string, object> SetMainRebarSolid(Girder.Girder Girder)
+        {
+            Girder.SetMainRebarSolid();
+            List<Solid> solid = new List<Solid>();
+            foreach (GMainRebar rebar in Girder.MainRebars)
+            {
+                solid.Add(rebar.RebarSolid);
+            }
+            return new Dictionary<string, object>
+            {
+                { "Girder", Girder },
+                { "MainRebars", Girder.MainRebars },
+                { "MainRebarSolids", solid }
+            };
+        }
+
+
+        
+
+
         // 기능
         [MultiReturn(new[] { "ElementSection", "SectionPlane", "SectionCurve", "Area", "Ix", "Iy", "Mx", "My", "centroidX", "centroidY", "CentroidPoint" } )]
         public static Dictionary<string, object> GetNaiveSectionPropertyAt(Girder.Girder girder, double alignDistance, bool isTapered=true)
@@ -184,8 +255,6 @@ namespace KDHBridge_DYN48.Nodes.DGirder
         }
 
         
-
-
        
 
     }

@@ -48,7 +48,11 @@ namespace KDHBridge_DYN48.Girder
         public List<GTendon> Tendons { get; set; }
 
         // Rebar
-        public GConnector Connector { get; set; }
+        public List<GHRebar> HRebars { get; set; }
+        public List<GMainRebar> MainRebars { get; set; }
+
+        public List<Curve> HRebarCurves { get; set; }
+        public List<Curve> MainRebarCurves { get; set; }
 
         // Analysis
 
@@ -63,6 +67,13 @@ namespace KDHBridge_DYN48.Girder
             EConcrete = eConcrete;
             GSectionDict = new Dictionary<int, IElementSection>();
             Tendons = new List<GTendon>();
+
+            HRebars = new List<GHRebar>();
+            MainRebars = new List<GMainRebar>();
+
+            HRebarCurves = new List<Curve>();
+            MainRebarCurves = new List<Curve>();
+
         }
 
         public void SetAlignment(double refX1, double refY1, double refZ1, double refX2, double refY2, double refZ2,
@@ -228,11 +239,53 @@ namespace KDHBridge_DYN48.Girder
         }
 
 
-        public void SetConnector()
+        public void SetHRebar(List<string> names, List<double> diameters, List<double> startLocations, List<double> startWidths, List<double> startHeights,
+            List<double> spacings, List<double> nums, List<List<double>> lengthLists, List<List<double>> angleHLists, List<List<double>> anglePlaneLists)
         {
             // Set connector
+            for (int i = 0; i < names.Count; i++)
+            {
+                GHRebar rebar = new GHRebar(this, names[i], diameters[i]);
+                rebar.SetHRebarCurve(startLocations[i], startWidths[i], startHeights[i], spacings[i], nums[i], lengthLists[i], angleHLists[i], anglePlaneLists[i]);
+                HRebars.Add(rebar);
+                HRebarCurves.AddRange(rebar.RebarCurves);
+            }
+        }
+        public void SetHRebarSolid()
+        {
+            List<Solid> solids = new List<Solid>();
+            foreach (GHRebar rebar in HRebars)
+            {
+                rebar.SetHRebarSolid();
+                solids.AddRange(rebar.RebarSolids);
+            }
+            SolidParts.AddRange(solids);
         }
 
+        public void SetMainRebar(List<string> names, List<double> diameters, List<List<double>> alignLocs,
+            List<List<double>> alignWidths, List<List<double>> alignHeights)
+        {
+            for (int i = 0; i < names.Count; i++)
+            {
+                GMainRebar rebar = new GMainRebar(this, names[i], diameters[i]);
+                rebar.SetProfile(alignLocs[i], alignWidths[i], alignHeights[i]);
+                MainRebars.Add(rebar);
+                MainRebarCurves.Add(rebar.RebarCurve);
+            }
+        }
+
+        public void SetMainRebarSolid()
+        {
+            List<Solid> solids = new List<Solid>();
+            foreach (GMainRebar rebar in MainRebars)
+            {
+                rebar.SetSolid();
+                solids.Add(rebar.RebarSolid);
+            }
+            SolidParts.AddRange(solids);
+        }
+
+        
 
         // 기능 
         // 1) 선형 지점 고르면 단면 선택
