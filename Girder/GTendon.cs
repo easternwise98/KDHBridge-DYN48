@@ -90,7 +90,7 @@ namespace KDHBridge_DYN48.Girder
             LocateHeight = gHeight;
 
             // 캠버가 있으면 거더 위치에 맞춰서 회전하기
-            if (HostGirder.Camber != 0 & HostGirder.Lateral != 0)
+            if (HostGirder.Camber != 0 || HostGirder.Lateral != 0)
             {
                 int n = (int)(Math.Floor(Profile3D.LocalXValues.Last() / tol) + 1);
                 List<double> range = Enumerable.Range(0, n + 1).Select(x => (double)x / n).ToList();
