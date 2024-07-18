@@ -2,6 +2,7 @@
 using Autodesk.DesignScript.Runtime;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace KDHBridge_DYN48.Girder
             Diameter = diameter;
         }
 
-        public void SetProfile(List<double> alignLoc, List<double> alignWidth, List<double> alignHeight)
+        public void SetProfile(List<double> alignLoc, List<double> alignWidth, List<double> alignHeight, bool isBending)
         {
             AlignLoc = alignLoc;
             AlignWidth = alignWidth;
@@ -55,11 +56,22 @@ namespace KDHBridge_DYN48.Girder
                 Curve curve = PolyCurve.ByPoints(controlPoints);
                 RebarCurve = curve;
             }
+            else if (isBending == true)
+            {
+                Curve curve = NurbsCurve.ByPoints(controlPoints);
+                RebarCurve = curve;
+            }
+            else if (isBending == false)
+            {
+                Curve curve = PolyCurve.ByPoints(controlPoints);
+                RebarCurve = curve;
+            }
             else
             {
                 Curve curve = NurbsCurve.ByPoints(controlPoints);
                 RebarCurve = curve;
             }
+            
         }
 
         public void SetSolid()

@@ -158,11 +158,11 @@ namespace KDHBridge_DYN48.Nodes.DGirder
         }
 
         [MultiReturn(new[] { "Girder", "MainRebars", "MainRebarCurves" })]
-        public static Dictionary<string, object> SetMainRebars(Girder.Girder Girder, List<string> name, List<double> diameter, List<List<double>> alignLoc, List<List<double>> alignWidth, List<List<double>> alignHeight, bool isReset = true)
+        public static Dictionary<string, object> SetMainRebars(Girder.Girder Girder, List<string> name, List<double> diameter, List<List<double>> alignLoc, List<List<double>> alignWidth, List<List<double>> alignHeight, bool isReset = true, bool isBending = true)
         {
             if (isReset) Girder.MainRebars.Clear(); Girder.MainRebarCurves.Clear();
 
-            Girder.SetMainRebar(name, diameter, alignLoc, alignWidth, alignHeight);
+            Girder.SetMainRebar(name, diameter, alignLoc, alignWidth, alignHeight, isBending);
 
 
             return new Dictionary<string, object>

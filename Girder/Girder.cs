@@ -263,12 +263,12 @@ namespace KDHBridge_DYN48.Girder
         }
 
         public void SetMainRebar(List<string> names, List<double> diameters, List<List<double>> alignLocs,
-            List<List<double>> alignWidths, List<List<double>> alignHeights)
+            List<List<double>> alignWidths, List<List<double>> alignHeights, bool isBending)
         {
             for (int i = 0; i < names.Count; i++)
             {
                 GMainRebar rebar = new GMainRebar(this, names[i], diameters[i]);
-                rebar.SetProfile(alignLocs[i], alignWidths[i], alignHeights[i]);
+                rebar.SetProfile(alignLocs[i], alignWidths[i], alignHeights[i], isBending);
                 MainRebars.Add(rebar);
                 MainRebarCurves.Add(rebar.RebarCurve);
             }

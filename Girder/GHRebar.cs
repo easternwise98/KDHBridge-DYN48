@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace KDHBridge_DYN48.Girder
 {
+    [IsVisibleInDynamoLibrary(false)]
     public class GHRebar
     {
         [IsVisibleInDynamoLibrary(false)]

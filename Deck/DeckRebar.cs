@@ -54,7 +54,7 @@ namespace KDHBridge_DYN48.Deck
 
                 // 편경사만큼 돌리기
                 Plane originPlane = Plane.ByOriginXAxisYAxis(originPoint, startPlane.XAxis, startPlane.YAxis);
-                Plane superPlane = (Plane)originPlane.Rotate(originPlane.Origin, originPlane.Normal, -1 * Math.Tanh(HostDeck.ElevationRatio) * 180 / Math.PI);
+                Plane superPlane = (Plane)originPlane.Rotate(originPlane.Origin, originPlane.Normal, -Math.Tanh(HostDeck.ElevationRatio) * 180 / Math.PI);
 
                 List<Point> drawPoints = new List<Point>() { originPoint };
                 List<Plane> drawPlanes = new List<Plane>() { superPlane };
